@@ -1,8 +1,8 @@
 import dotenv from "dotenv";
 dotenv.config();
 import { json } from "express";
-import { UserAuth } from "../models/userAuthSchema";
-import bycrypt from "bycryptjs"
+import { UserAuth } from "../models/userAuthSchema.js";
+import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken"
 
 export const signup = async(req , res) => {
@@ -12,17 +12,17 @@ export const signup = async(req , res) => {
     const existing = await UserAuth.findOne({email});
 
     if(existing){
-      res.status(400).json({error : "Email already registered"});
+      return res.status(400).json({error : "Email already registered"});
     }
 
-    const hashedPassword = await bycrypt.hash(password , 10);
+    const hashedPassword = await bcrypt.hash(password , 10);
 
     const user = await UserAuth.create({
       name,email,password:hashedPassword
     });
 
     const token = jwt.sign(
-      { userId : user.userId , email: user.email
+      { userId : user._id , email: user.email
       }, 
       process.env.JWT_SECRET,
       {expiresIn: "7d"}
@@ -31,7 +31,7 @@ export const signup = async(req , res) => {
     res.json({
       message: "SignUp Successfull",
       token,
-      userId: user.userId,
+      userId: user._id,
       name: user.name,
       email: user.email
     });
@@ -44,17 +44,17 @@ export const signup = async(req , res) => {
 
 export const login = async (req , res) => {
   try {
-    const {email , password} = req.body()
+    const {email , password} = req.body;
 
-    const user = await user.findOne({email});
+    const user = await UserAuth.findOne({email});
 
     if(!user) return res.status(404).json({error: "User not found or Registered"});
 
-    const match = await bycrypt.compare(password , user.password);
+    const match = await bcrypt.compare(password , user.password);
     if(!match) return res.status(400).json({error : "Incorrrect password"});
 
     const token = jwt.sign(
-      {userId : user.userId , email: user.email },
+      {userId : user._id , email: user.email },
       process.env.JWT_SECRET,
       {expiresIn: "7d"}
     );
@@ -62,7 +62,7 @@ export const login = async (req , res) => {
     res.json({
       message: "Login Successful",
       token,
-      userId: user.userId,
+      userId: user._id,
       email: user.email,
       name: user.name
     });

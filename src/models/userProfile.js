@@ -37,7 +37,12 @@ const ExperienceSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
 
-  userId: { type: String, required: true, unique: true},
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "UserAuth",
+    required: true,
+    unique: true
+  },
 
   fullname: { type: String, required: true },
 
@@ -59,7 +64,7 @@ const userSchema = new mongoose.Schema({
 
   education : { type: [EducationSchema] , default: []},
 
-  expreience: {type: [ExperienceSchema] , default: []},
+  experience: {type: [ExperienceSchema] , default: []},
 
   resumeUrl: {type: String , default: ""},
 
