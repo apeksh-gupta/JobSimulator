@@ -1,8 +1,9 @@
-import { configDotenv } from "dotenv";
+import dotenv from "dotenv";
+dotenv.config();
+import { json } from "express";
 import { UserAuth } from "../models/userAuthSchema";
 import bycrypt from "bycryptjs"
 import jwt from "jsonwebtoken"
-import { use } from "react";
 
 export const signup = async(req , res) => {
   try {
