@@ -1,13 +1,34 @@
 import mongoose from "mongoose";
 const jobSchema = new mongoose.Schema({
   title: {
-    type: String
+    type: String,
+    default: ""
   },
   company: {
-    type: String
+    type: String,
+    default: ""
   },
   location: {
-    type: String
+    type: String,
+    default: ""
+  },
+
+  jobType: {
+    type: String,
+    default: ""
+  },
+  experience: {
+    type: String,
+    default: ""
+  },
+  seniority: {
+    type: String,
+    default: ""
+  },
+
+  salary: {
+    type: String,
+    default: ""
   },
   skills: {
     type: [String]
@@ -15,16 +36,24 @@ const jobSchema = new mongoose.Schema({
   description: {
     type: String
   },
-  link: {
+  jobUrl: {
+    type: String,
+    required: true
+  },
+  source: {
     type: String
   },
-  scrappedFrom: {
+  rawText: {
     type: String
   },
-  postedAt: {
-    type: Date,
-    default: Date.now
-  }
+  llmVersion: {
+    type: String, 
+    default: "gemini-1.5-flash" },
+
+  scrapedAt: { 
+    type: Date, 
+    default: Date.now }
+    
 },  {timestamps: true}
 )
 
