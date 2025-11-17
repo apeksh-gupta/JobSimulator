@@ -54,7 +54,7 @@ const userSchema = new mongoose.Schema({
 
   mobile: {type: String, default: "" },
 
-  fullAdress: {type: String, default: "" },
+  fullAddress: {type: String, default: "" },
 
   linkedin: { type: String, default: "" },
    
