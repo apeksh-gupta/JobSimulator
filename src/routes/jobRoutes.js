@@ -18,7 +18,17 @@ jobRoutes.put("/apply/:jobId", authMiddleware, applyJob);
 // Update application status (in_review, selected, rejected)
 jobRoutes.put("/status/:jobId", authMiddleware, updateApplicationStatus);
 
+// getSingle Job details
+jobRoutes.get("/:jobId", authMiddleware, getSingleJob);
+
 // Unified filtering (all jobs, applied, not applied, in_review, selected, rejected)
 jobRoutes.get("/", authMiddleware, getFilteredJobs);
+
+
+jobRoutes.delete("/:jobId", authMiddleware, deleteJob);
+
+
+
+
 
 export default jobRoutes;

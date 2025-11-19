@@ -209,7 +209,7 @@ export const updateApplicationStatus = async (req , res) => {
 };
 
 // --------------------------------------------------
-// 4) Update Job Application Status
+// 4) get unified filtering
 // --------------------------------------------------
 
 
@@ -253,5 +253,71 @@ export const getFilteredJobs = async (req , res) => {
   } catch (error) {
     console.error("Unified Filter Error:", error);
     res.status(500).json({error: "Failed to fetch jobs"});
+  }
+};
+
+// --------------------------------------------------
+// 5) get single job 
+// --------------------------------------------------
+
+export const getSingleJob = async (req , res) => {
+  try {
+    const userId = req.user?.userId;
+    const { jobId } = req.params;
+
+    if(!userId){
+      return res.status(401).json({error: "Unauthorized"});
+    }
+
+    if(!jobId){
+      return res.status(400).json({error: "Job Id is required"});
+    }
+
+    const job = await Job.findOne({_id:jobId , userId});
+
+    if(!job){
+      return res.status(404).json({error: "Job not found or unauthorized"})
+    }
+
+    return res.json({
+      message: "Job details fetched successfully",
+      job
+    });
+
+  } catch (error) {
+    console.error("Get single Job Error", error);
+    res.status(500).json({error: "Failed to fetch job details"});
+  }
+};
+
+// --------------------------------------------------
+// 6) delete a particular job 
+// --------------------------------------------------
+
+export const deleteJob = async (req , res) => {
+  try {
+    const userId = req.user?.userId;
+    const { jobId } = req.params;
+
+    if(!userId){
+      return res.status(401).json({error: "unauthorized"});
+    }
+    if(!jobId){
+      return res.status(400).json({error: "Job Id is required"});
+    }
+
+    const job = await Job.findOneAndDelete({_id:jobId , userId});
+    
+    if(!job){
+      return res.status(404).json({error: "Job not found or unauthorized"})
+    }
+
+    return res.json({
+      message: "Job deleted successfully",
+      deleteJob: jobId
+    })
+  } catch (error) {
+    console.error("Delete Job Error" , error);
+    res.status(500).json({error: "Failed to delete job"});
   }
 };
