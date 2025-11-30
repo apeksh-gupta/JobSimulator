@@ -28,10 +28,16 @@ export const createUserProfile = async(req , res) => {
 
 export const getUserProfile = async(req , res) => {
   try {
-    const {userId} = req.user;
-    const profile = await UserProfile.findOne({userId});
-    
-    res.json({profile})
+    const { userId } = req.user;
+    console.log("JWT userId:", userId);
+
+    const all = await UserProfile.find({});
+    console.log("All profiles in DB:", all);
+
+    const profile = await UserProfile.findOne({ userId });
+
+    res.json({ profile });
+
   } catch (error) {
     res.status(500).json({error: error.message});
   }

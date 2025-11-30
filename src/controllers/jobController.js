@@ -9,7 +9,6 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 // --------------------------------------------------
 // 1) Extract Job via Gemini AI
 // --------------------------------------------------
-
 export const extractJobAI = async (req, res) => {
   try {
     const userId = req.user?.userId; // from authMiddleware
@@ -124,11 +123,9 @@ export const extractJobAI = async (req, res) => {
   }
 };
 
-
 // --------------------------------------------------
 // 2) Mark Job as Applied
 // --------------------------------------------------
-
 export const applyJob = async (req , res) => {
   try {
     const userId = req.user?.userId;
@@ -170,7 +167,6 @@ export const applyJob = async (req , res) => {
 // --------------------------------------------------
 // 3) Update Job Application Status
 // --------------------------------------------------
-
 export const updateApplicationStatus = async (req , res) => {
   try {
     const userId = req.user?.userId;
@@ -211,8 +207,6 @@ export const updateApplicationStatus = async (req , res) => {
 // --------------------------------------------------
 // 4) get unified filtering
 // --------------------------------------------------
-
-
 export const getFilteredJobs = async (req , res) => {
   try {
     const userId = req.user?.userId;
@@ -259,7 +253,6 @@ export const getFilteredJobs = async (req , res) => {
 // --------------------------------------------------
 // 5) get single job 
 // --------------------------------------------------
-
 export const getSingleJob = async (req , res) => {
   try {
     const userId = req.user?.userId;
@@ -293,7 +286,6 @@ export const getSingleJob = async (req , res) => {
 // --------------------------------------------------
 // 6) delete a particular job 
 // --------------------------------------------------
-
 export const deleteJob = async (req , res) => {
   try {
     const userId = req.user?.userId;

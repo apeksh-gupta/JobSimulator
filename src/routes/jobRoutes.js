@@ -3,7 +3,9 @@ import {
   extractJobAI, 
   applyJob, 
   updateApplicationStatus,
-  getFilteredJobs
+  getFilteredJobs,
+  getSingleJob,
+  deleteJob,
 } from "../controllers/jobController.js";
 import { authMiddleware } from "../middleware/authMiddleware.js";
 
@@ -11,6 +13,7 @@ const jobRoutes = express.Router();
 
 // Extract job using AI
 jobRoutes.post("/extract", authMiddleware, extractJobAI);
+
 
 // Apply to a job (sets applied = true and applicationStatus = in_review)
 jobRoutes.put("/apply/:jobId", authMiddleware, applyJob);
@@ -26,6 +29,7 @@ jobRoutes.get("/", authMiddleware, getFilteredJobs);
 
 
 jobRoutes.delete("/:jobId", authMiddleware, deleteJob);
+
 
 
 

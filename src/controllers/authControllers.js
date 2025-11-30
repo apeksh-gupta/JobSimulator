@@ -31,9 +31,11 @@ export const signup = async(req , res) => {
     res.json({
       message: "SignUp Successfull",
       token,
-      userId: user._id,
-      name: user.name,
-      email: user.email
+      user: {
+        userId: user._id,
+        name: user.name,
+        email: user.email
+      }
     });
 
   } catch (error) {
@@ -62,9 +64,11 @@ export const login = async (req , res) => {
     res.json({
       message: "Login Successful",
       token,
-      userId: user._id,
-      email: user.email,
-      name: user.name
+      user: {
+        userId: user._id,
+        name: user.name,
+        email: user.email
+      }
     });
 
   } catch (error) {

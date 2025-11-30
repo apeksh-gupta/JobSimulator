@@ -41,10 +41,9 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "UserAuth",
     required: true,
-    unique: true
   },
 
-  fullname: { type: String, required: true },
+  name: { type: String, required: true },
 
   gender: { type: String, enum: ["Male" , "Female" , "Others" , ""], default: "" },
 
@@ -78,4 +77,5 @@ const userSchema = new mongoose.Schema({
 }, {timestamps: true}
 );
 
-export const  UserProfile = mongoose.model("UserProfile" , userSchema);
+export const UserProfile =
+  mongoose.models.UserProfile || mongoose.model("UserProfile", userSchema);
