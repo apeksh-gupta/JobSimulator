@@ -16,10 +16,10 @@ jobRoutes.post("/extract", authMiddleware, extractJobAI);
 
 
 // Apply to a job (sets applied = true and applicationStatus = in_review)
-jobRoutes.put("/apply/:jobId", authMiddleware, applyJob);
+jobRoutes.post("/apply/:jobId", authMiddleware, applyJob);
 
 // Update application status (in_review, selected, rejected)
-jobRoutes.put("/status/:jobId", authMiddleware, updateApplicationStatus);
+jobRoutes.patch("/status/:jobId", authMiddleware, updateApplicationStatus);
 
 // getSingle Job details
 jobRoutes.get("/:jobId", authMiddleware, getSingleJob);
