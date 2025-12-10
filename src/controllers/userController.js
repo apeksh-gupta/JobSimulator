@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 dotenv.config();
-import { UserProfile } from "../models/UserProfile.js";
+import { UserProfile } from "../models/userProfile.js";
 
 // -----------------------------------------
 // CREATE PROFILE (only once after signup)
