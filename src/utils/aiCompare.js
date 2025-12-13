@@ -26,7 +26,17 @@ export const getAIResumeComparison = async(resumetext , jobDescription) => {
     return json;
 
   } catch (error) {
-    console.log("Ai Service Error;", error);
-    throw new Error("AI comparison Failed");
+    // 3. IMPROVED ERROR LOGGING
+    console.error("❌ AI Service Error Details:");
+    if (error.response) {
+      console.error("Status:", error.response.status);
+      console.error("Data:", JSON.stringify(error.response.data, null, 2));
+    } else {
+      console.error("Message:", error.message);
+    }
+
+    // 4. THROW THE REAL ERROR
+    // This ensures the controller gets the specific reason (e.g., "404 Not Found")
+    throw new Error(`AI Error: ${error.message}`);
   }
 };
